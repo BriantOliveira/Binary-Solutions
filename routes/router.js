@@ -2,9 +2,9 @@
  * Main Router File
  ************************************/
 
- module.exports = (app) => {
+ module.exports = function(app) {
      //INDEX
-     app.get('/', (req, res) => {
+     app.get('/', function(req, res) {
          res.render('index');
      });
  };

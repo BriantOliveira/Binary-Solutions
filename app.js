@@ -20,12 +20,11 @@ const PORT = process.env.PORT || 8000
 /****************************************************
  *  Add Middleware
  ***************************************************/
- app.set('public', path.join(__dirname, 'public'));
- app.use(express.static('./public'));
+ app.set('views', path.join(__dirname, 'views'));
  app.use(bodyParser.urlencoded({extended: true}));
-
+ app.use(express.static('./public'));
  //Handlebars view engine setup
- app.engine('hbs', hbs({defaultLayout: 'main', extname: 'hbs'}));
+ app.engine('hbs', hbs({defaultLayout: 'index', extname: 'hbs'}));
  app.set('view engine', 'hbs');
 
 
@@ -43,6 +42,9 @@ const PORT = process.env.PORT || 8000
          res.send('Error!!! Page not found...')
      };
  });
+
+ //Load Routes
+ require('./routes/router.js')(app);
 
  //Listen on port number
  app.listen(PORT, function() {
