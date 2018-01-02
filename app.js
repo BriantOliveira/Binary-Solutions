@@ -8,6 +8,9 @@ const express = require('express');
 const hbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+
 
 
 //Instantiate express
@@ -16,15 +19,32 @@ const app = express();
 //Defining Port
 const PORT = process.env.PORT || 8000
 
+//Connecting the database
+// mongoose.Promise = global.Promise;
+//
+// mongoose.connect('mongodb://localhost/binary', {useMongoClient: true});
+// console.log("You are connected to the database...");
+//
+//
+//
+// let db = mongoose.connection;
+//
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function () {
+//
+// });
+
 
 /****************************************************
  *  Add Middleware
  ***************************************************/
- app.set('views', path.join(__dirname, 'views'));
+ app.set('main', path.join(__dirname, 'main'));
+ app.use(bodyParser.json());
+ app.use(cookieParser());
  app.use(bodyParser.urlencoded({extended: true}));
  app.use(express.static('./public'));
  //Handlebars view engine setup
- app.engine('hbs', hbs({defaultLayout: 'index', extname: 'hbs'}));
+ app.engine('hbs', hbs({defaultLayout: 'main', extname: 'hbs'}));
  app.set('view engine', 'hbs');
 
 
